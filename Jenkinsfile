@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/imakashpatil/node_hello.git'
-        IMAGE_NAME = 'your-dockerhub-username/node-app'
+        IMAGE_NAME = 'imakashpatil/hello_node'
         CONTAINER_NAME = 'node-app'
         APP_PORT = '3000'
     }
@@ -23,8 +23,8 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'docker_cred', passwordVariable: 'akashpatil.dev', usernameVariable: 'imakashpatil')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u your-dockerhub-username --password-stdin'
+                withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                    sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
                     sh 'docker push ${IMAGE_NAME}'
                 }
             }
