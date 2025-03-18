@@ -8,6 +8,9 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
     res.send('This is home page');
 });
+app.get('/snehal', (req, res) => {
+    res.send('This is page dedicated to snehal ');
+});
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
